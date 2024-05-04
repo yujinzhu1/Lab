@@ -3,33 +3,32 @@
 #include <string.h>
 
 int main(void) {
-    #define BUFFER_SIZE 256
-    char inputBuffer[BUFFER_SIZE + 1];
-    char character;
-    int index = 0; // Counter for the number of characters read
-    
-    printf("Enter a file name: .txt");
-    
-    // Read characters until newline character is encountered or buffer is full
-    while ((character = getchar()) != '\n' && index < BUFFER_SIZE) {
-        inputBuffer[index++] = character;
+
+    // Get user input
+    #define N 256
+    char buffer[N+1], *filename = buffer; // Declare a buffer to store user input
+    char ch;
+    int i = 0; // counter for how many characters read
+    printf("Enter a file name: ");
+    while ((ch = getchar()) != '\n') { // get one character at a time
+        
+        // Enter your code under here
+        if (i >= N) { // Check if the filename exceeds 256 characters
+            printf("Error!"); // Print error message and exit if exceeded
+            return EXIT_FAILURE;
+        }
+        filename[i++] = ch; // Store the character in the buffer
+    }
+    for (; i < N+1; i++) { // fill the rest of the array with null characters
+        filename[i] = '\0';
     }
 
-    // If the input exceeds buffer size, display error message and exit
-    if (index == BUFFER_SIZE) {
-        printf("Error!");
-        return EXIT_FAILURE;
-    }
-
-    // Fill the remaining buffer with null characters
-    inputBuffer[index] = '\0';
-
-    // Find the last occurrence of the dot character in the input filename
-    char *extension = strrchr(inputBuffer, '.');
-    if (extension != NULL && *(extension + 1) != '\0') {
-        printf( extension + 1); // Print the extension, excluding the dot
+    // Enter your code under here
+    char *ext = strrchr(filename, '.'); // Find the last occurrence of the dot character
+    if (ext != NULL && *(ext + 1) != '\0') { // Check if a valid file extension is found
+        printf("%s", ext); // Print the file extension
     } else {
-        printf("Error: No valid file extension found.");
+        printf("Error!"); // Print error message if no valid file extension found
     }
 
     return EXIT_SUCCESS;
