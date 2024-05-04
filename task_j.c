@@ -15,8 +15,8 @@ int main(void) {
     char dateStr[20]; // Ensure the buffer is large enough
     strftime(dateStr, sizeof(dateStr), "%b %2d %Y", tm); // Format date as "Apr 15 2021"
 
-    fprintf(fptr, "Hello. My email address is:\n");
-    fprintf(fptr, "%s\n", email);
+    fprintf(fptr, "Hello. My email address is:");
+    fprintf(fptr, "%s", email);
     fprintf(fptr, "I completed the course on %s", dateStr); //To show the outputs
 
     fclose(fptr); // Close and clean up
