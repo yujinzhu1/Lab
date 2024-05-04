@@ -5,21 +5,23 @@
 int main(void) {
     char email[] = "yujin.zhu@student.manchester.ac.uk";
     FILE *fptr = fopen("certificate.txt", "w");
-    if (fptr == NULL) { //To open the file
+    if (fptr == NULL) { // Check if the file was opened successfully
         printf("Error. Not able to open the file.");
         return EXIT_FAILURE;
     }
 
-    time_t t = time(NULL); // Get current time and format it
+    time_t t = time(NULL); // Get current time
     struct tm *tm = localtime(&t);
-    char dateStr[20]; // Ensure the buffer is large enough
-    strftime(dateStr, sizeof(dateStr), "%b %2d %Y", tm); // Format date as "Apr 15 2021"
+    char dateStr[20]; // Buffer for date string
+    strftime(dateStr, sizeof(dateStr), "%b%2d%Y", tm); // Format date as "Apr 15 2021"
 
-    fprintf(fptr, "Hello. My email address is:");
-    fprintf(fptr, "%s", email);
-    fprintf(fptr, "I completed the course on %s", dateStr); //To show the outputs
+    // Write to file
+    fprintf(fptr, "Hello. My email address is:\n");
+    fprintf(fptr, "%s\n", email);
+    fprintf(fptr, "I completed the course on %s", dateStr);
 
-    fclose(fptr); // Close and clean up
-    fptr = NULL;
+    // Close the file
+    fclose(fptr);
+    
     return EXIT_SUCCESS;
 }
