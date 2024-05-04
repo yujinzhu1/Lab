@@ -63,7 +63,7 @@ int main(void) {
     }
 
     // Print the median values for each column
-    printf("Median values: %.2f, %.2f, %.2f", median[0], median[1], median[2]);
+    printf("%.2f, %.2f, %.2f", median[0], median[1], median[2]);
 
     return EXIT_SUCCESS;
 }
