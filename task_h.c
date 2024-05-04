@@ -22,14 +22,12 @@ int main(void) {
     }
 
     // Fill the remaining buffer with null characters
-    for (; index < BUFFER_SIZE + 1; index++) {
-        inputBuffer[index] = '\0';
-    }
+    inputBuffer[index] = '\0';
 
-    // Find the file extension
+    // Find the last occurrence of the dot character in the input filename
     char *extension = strrchr(inputBuffer, '.');
     if (extension != NULL && *(extension + 1) != '\0') {
-        printf("File extension: %s", extension);
+        printf("File extension: %s", extension + 1); // Print the extension, excluding the dot
     } else {
         printf("Error: No valid file extension found.");
     }
