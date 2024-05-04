@@ -1,45 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "task_g.h"
+#include "task_g.h" // Include the header file for find_max_less_than_10 function
 
 int main(void) {
-    // Open the file "number.txt" for reading
-    FILE *inputFile = fopen("number.txt", "r");
-    
-    // Check if file opening failed
-    if (!inputFile) {
-        printf("Unable to open the file.\n");
-        return 1;
+    FILE *file = fopen("numbers.txt", "r"); // Open the file for reading
+    if (!file) { // Check if the file opening was successful
+        printf("Error!"); // Print error message if file opening fails
+        return 1; // Return with error status
     }
 
-    // Array to store numbers from the file
-    double numArray[20];
-    int numCount = 0;
+    double numbers[20]; // Array to store numbers
+    int count = 0; // Counter for the number of numbers read
 
-    // Read up to 20 numbers from the file
-    while (numCount < 20 && fscanf(inputFile, "%lf", &numArray[numCount]) == 1) {
-        numCount++;
+    // Read 20 numbers from the file
+    while (count < 20 && fscanf(file, "%lf", &numbers[count]) == 1) {
+        count++; // Increment count after reading a number
     }
-    
-    // Close the file
-    fclose(inputFile);
+    fclose(file); // Close the file
 
-    // Check if fewer than 20 numbers were read
-    if (numCount < 20) {
-        printf("Error: Insufficient data.\n");
-        return 1;
+    // Check if we read less than 20 numbers
+    if (count < 20) {
+        printf("Error!"); // Print error message if less than 20 numbers were read
+        return 1; // Return with error status
     }
 
-    // Find the maximum number less than 10
-    double maximum;
-    find_max_less_than_10(numArray, numCount, &maximum);
+    double max; // Variable to store the maximum number less than 10
+    find_max_less_than_10(numbers, count, &max); // Call the function to find the maximum number less than 10
 
-    // Check if a valid number less than 10 was found
-    if (maximum == -1) {
-        printf("Error: No valid number found.\n");
+    if (max == -1) {  // If no valid number was found
+        printf("Error!"); // Print error message
     } else {
-        printf("Maximum number less than 10: %.2f\n", maximum);
+        printf("%.2f", max); // Print the maximum number less than 10 with 2 decimal places
     }
-    
-    return 0;
+
+    return 0; // Return with success status
 }
