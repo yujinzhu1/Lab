@@ -18,7 +18,7 @@ int main(void) {
     filePointer = fopen(fileName, "r"); // Open file for reading
 
     if (filePointer == NULL) {
-        printf("Error: Failed to open the file.\n"); // Print error message if file opening fails
+        printf("Error: Failed to open the file."); // Print error message if file opening fails
         return EXIT_FAILURE;
     }
 
@@ -63,7 +63,7 @@ int main(void) {
     }
 
     // Print the median values for each column
-    printf("Median values: %.2f, %.2f, %.2f\n", median[0], median[1], median[2]);
+    printf("Median values: %.2f, %.2f, %.2f", median[0], median[1], median[2]);
 
     return EXIT_SUCCESS;
 }
