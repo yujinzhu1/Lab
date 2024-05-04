@@ -8,7 +8,7 @@ int main(void) {
     char character;
     int index = 0; // Counter for the number of characters read
     
-    printf("Please enter a file name: .txt ");
+    printf("Enter a file name: .txt");
     
     // Read characters until newline character is encountered or buffer is full
     while ((character = getchar()) != '\n' && index < BUFFER_SIZE) {
@@ -29,7 +29,7 @@ int main(void) {
     // Find the file extension
     char *extension = strrchr(inputBuffer, '.');
     if (extension != NULL && *(extension + 1) != '\0') {
-        printf("File extension: %s\n", extension);
+        printf("File extension: %s", extension);
     } else {
         printf("Error: No valid file extension found.");
     }
