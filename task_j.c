@@ -13,7 +13,7 @@ int main(void) {
     time_t t = time(NULL); // Get current time
     struct tm *tm = localtime(&t);
     char dateStr[20]; // Buffer for date string
-    strftime(dateStr, sizeof(dateStr), "%b%2d%Y", tm); // Format date as "Apr 15 2021"
+    strftime(dateStr, sizeof(dateStr), "%b %-2d %Y", tm); // Format date as "Apr 15 2021" without leading zero
 
     // Write to file
     fprintf(fptr, "Hello. My email address is:\n");
