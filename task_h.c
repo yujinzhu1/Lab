@@ -4,28 +4,34 @@
 
 int main(void) {
     #define BUFFER_SIZE 256
-    char inputBuffer[BUFFER_SIZE + 1], *fileName = inputBuffer;
+    char inputBuffer[BUFFER_SIZE + 1];
     char character;
     int index = 0; // Counter for the number of characters read
     
-    printf("Please enter a file name: ");
+    printf("Please enter a file name: .txt ");
     
-    // Read characters until newline character is encountered
-    while ((character = getchar()) != '\n') {
-        fileName[index++] = character;
+    // Read characters until newline character is encountered or buffer is full
+    while ((character = getchar()) != '\n' && index < BUFFER_SIZE) {
+        inputBuffer[index++] = character;
+    }
+
+    // If the input exceeds buffer size, display error message and exit
+    if (index == BUFFER_SIZE) {
+        printf("Error!");
+        return EXIT_FAILURE;
     }
 
     // Fill the remaining buffer with null characters
     for (; index < BUFFER_SIZE + 1; index++) {
-        fileName[index] = '\0';
+        inputBuffer[index] = '\0';
     }
 
     // Find the file extension
-    char *extension = strrchr(fileName, '.');
+    char *extension = strrchr(inputBuffer, '.');
     if (extension != NULL && *(extension + 1) != '\0') {
         printf("File extension: %s\n", extension);
     } else {
-        printf("Error: No valid file extension found.\n");
+        printf("Error: No valid file extension found.");
     }
 
     return EXIT_SUCCESS;
