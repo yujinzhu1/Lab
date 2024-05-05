@@ -173,6 +173,17 @@ int perform_random_walks(int i, int j, int steps) {
     return -1;
 }
 
+double calcu_standard_deviation(double* arr, double mean_value, int length) {
+    if (length == 0) {
+        return 0;
+    }
+    double std_value = 0;
+    for (int i = 0; i < length; i++) {
+        std_value += pow(mean_value - arr[i], 2);
+    }
+    return sqrt(std_value / length);
+}
+
 int main(void) {
     srand(123456);
     double steps_length;
@@ -185,23 +196,19 @@ int main(void) {
         for (int j = 0; j < NUMCOLS; j++) {
             double sum_length = 0;
             double path_length[NUMWALKS] = { 0 };
+            int n = 0;
             for (int walk = 0; walk < NUMWALKS; walk++) {
                 steps_length = perform_random_walks(i, j, 0);
                 if (steps_length >= 0) {
-                    Probability[i][j] += 1;
-                    path_length[walk] = steps_length;
+                    path_length[n++] = steps_length;
                     sum_length += steps_length;
                 }
             }
-            if (Probability[i][j] > 0) {
-                MeanPath[i][j] = sum_length / Probability[i][j];
+            if (n > 0) {
+                MeanPath[i][j] = sum_length / n;
             }
-            double top = 0;
-            for (int walk = 0; walk < NUMWALKS; walk++) {
-                top += (MeanPath[i][j] - path_length[walk]) * (MeanPath[i][j] - path_length[walk]);
-            }
-            StandardDeviation[i][j] = sqrt(top / NUMWALKS);
-            Probability[i][j] = 100.0 * Probability[i][j] / NUMWALKS;
+            StandardDeviation[i][j] = calcu_standard_deviation(path_length, MeanPath[i][j], n);
+            Probability[i][j] = 100.0 * n / NUMWALKS;
         }
     }
 
