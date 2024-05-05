@@ -1,7 +1,6 @@
 ﻿// Add brief description here
 
 #include <stdio.h>
-// Enter any other #includes that you deem necessary below
 #include <stdlib.h>
 #include <math.h>
 
@@ -9,15 +8,15 @@
 #define NUMCOLS  9    // map size
 #define NUMWALKS 1000 // number of random walks
 #define NUMSTEP  10   // number of steps in each walk
-// Enter any other #defines as you deem necessary below
 
 #define INPUT_FILE_NAME "island_map.txt"
 
-char MAP[NUMROWS][NUMCOLS] = { 0 };
-double Probability[NUMROWS][NUMCOLS] = { 0 };
-double MeanPath[NUMROWS][NUMCOLS] = { 0 };
-double StandardDeviation[NUMROWS][NUMCOLS] = { 0 };
+char MAP[NUMROWS][NUMCOLS] = { 0 }; // 2D array to store the map
+double Probability[NUMROWS][NUMCOLS] = { 0 }; // Probability of escaping from each cell
+double MeanPath[NUMROWS][NUMCOLS] = { 0 }; // Mean path length from each cell
+double StandardDeviation[NUMROWS][NUMCOLS] = { 0 }; // Standard deviation of path length from each cell
 
+// Function to load the map from file
 void load_map() {
     FILE* fp = NULL;
     char ch;
@@ -42,6 +41,7 @@ void load_map() {
     fclose(fp);
 }
 
+// Function to print the loaded map
 void print_map() {
     printf("Map:\n");
     for (int i = 0; i < NUMROWS; i++) {
@@ -57,6 +57,7 @@ void print_map() {
     }
 }
 
+// Function to print the results
 void print_results() {
     printf("\nProbability of escape:\n");
     for (int i = 0; i < NUMROWS; i++) {
@@ -98,6 +99,7 @@ void print_results() {
     }
 }
 
+// Function to attempt a move based on a random step
 void try_move(int* i, int* j, int random_step) {
     switch (random_step) {
     default:
@@ -158,6 +160,7 @@ void try_move(int* i, int* j, int random_step) {
     }
 }
 
+// Function to perform a random walk
 int perform_random_walks(int i, int j, int steps) {
     if (MAP[i][j] == 'B') {
         return steps;
@@ -173,6 +176,7 @@ int perform_random_walks(int i, int j, int steps) {
     return -1;
 }
 
+// Function to calculate standard deviation
 double calcu_standard_deviation(double* arr, double mean_value, int length) {
     if (length == 0) {
         return 0;
@@ -184,6 +188,7 @@ double calcu_standard_deviation(double* arr, double mean_value, int length) {
     return sqrt(std_value / length);
 }
 
+// Main function
 int main(void) {
     srand(123456);
     double steps_length;
