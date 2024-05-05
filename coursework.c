@@ -109,8 +109,10 @@ void try_move(int* i, int* j, int random_step) {
         }
         break;
     case 1:
-        if ((*i) - 1 >= 0 && (*j) + 1 < NUMROWS) {
+        if ((*i) - 1 >= 0) {
             *i = (*i) - 1;
+        }
+        if ((*j) + 1 < NUMROWS) {
             *j = (*j) + 1;
         }
         break;
@@ -120,8 +122,10 @@ void try_move(int* i, int* j, int random_step) {
         }
         break;
     case 3:
-        if ((*i) + 1 < NUMROWS && (*j) + 1 < NUMROWS) {
+        if ((*i) + 1 < NUMROWS) {
             *i = (*i) + 1;
+        }
+        if ((*j) + 1 < NUMROWS) {
             *j = (*j) + 1;
         }
         break;
@@ -131,8 +135,10 @@ void try_move(int* i, int* j, int random_step) {
         }
         break;
     case 5:
-        if ((*i) + 1 < NUMROWS && (*j) - 1 >= 0) {
+        if ((*i) + 1 < NUMROWS) {
             *i = (*i) + 1;
+        }
+        if ((*j) - 1 >= 0) {
             *j = (*j) - 1;
         }
         break;
@@ -142,8 +148,10 @@ void try_move(int* i, int* j, int random_step) {
         }
         break;
     case 7:
-        if ((*i) - 1 >= 0 && (*j) - 1 >= 0) {
+        if ((*i) - 1 >= 0) {
             *i = (*i) - 1;
+        }
+        if ((*j) - 1 >= 0) {
             *j = (*j) - 1;
         }
         break;
@@ -185,17 +193,14 @@ int main(void) {
                     sum_length += steps_length;
                 }
             }
-            MeanPath[i][j] = sum_length / NUMWALKS;
+            if (Probability[i][j] > 0) {
+                MeanPath[i][j] = sum_length / Probability[i][j];
+            }
             double top = 0;
             for (int walk = 0; walk < NUMWALKS; walk++) {
                 top += (MeanPath[i][j] - path_length[walk]) * (MeanPath[i][j] - path_length[walk]);
             }
             StandardDeviation[i][j] = sqrt(top / NUMWALKS);
-        }
-    }
-
-    for (int i = 0; i < NUMROWS; i++) {
-        for (int j = 0; j < NUMCOLS; j++) {
             Probability[i][j] = 100.0 * Probability[i][j] / NUMWALKS;
         }
     }
